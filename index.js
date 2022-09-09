@@ -15,7 +15,7 @@ const data = await getData();
 // extracting image tag using regular expression
 const img = data.match(/<img([\w\W]+?)>/g);
 
-// using map on array of img tag and extracting url and creating a new array with first 10 url
+// using map on array of img tag to extract url and creating a new array with first 10 url
 
 const imgUrls = img
   .map((el) => {
@@ -25,13 +25,14 @@ const imgUrls = img
   })
   .splice(0, 10);
 
+// create new directory
 fs.mkdir(path.join(path.resolve(), 'memes'), { recursive: true }, (err) => {
   if (err) {
     return console.error(err);
   }
   console.log('Directory created successfully!');
 });
-
+// extracting image data from array and write data into file
 async function downloadImage(url, index) {
   const writer = fs.createWriteStream(`memes/0${index + 1}.jpg`);
 
